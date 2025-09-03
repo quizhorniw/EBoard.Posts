@@ -12,6 +12,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.Application\SolarLab.EBoard.Posts.Application.csproj" />
       <ProjectReference Include="..\SolarLab.EBoard.Posts.Domain\SolarLab.EBoard.Posts.Domain.csproj" />
     </ItemGroup>
+
 </Project>
