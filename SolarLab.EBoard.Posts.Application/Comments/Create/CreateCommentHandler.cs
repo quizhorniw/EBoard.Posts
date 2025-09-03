@@ -18,7 +18,7 @@ public sealed class CreateCommentHandler : IRequestHandler<CreateCommentCommand,
 
     public async Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
-        var comment = Comment.Create(request.AdPostId, _userContext.UserId, request.Text);
+        var comment = Comment.Create(request.PostId, _userContext.UserId, request.Text);
         await _commentsRepository.AddAsync(comment, cancellationToken);
         return comment.Id;
     }

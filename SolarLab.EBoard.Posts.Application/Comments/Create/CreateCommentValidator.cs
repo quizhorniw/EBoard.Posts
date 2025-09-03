@@ -6,7 +6,7 @@ internal sealed class CreateCommentValidator : AbstractValidator<CreateCommentCo
 {
     public CreateCommentValidator()
     {
-        RuleFor(c => c.AdPostId).NotEmpty();
+        RuleFor(c => c.PostId).NotEmpty();
         RuleFor(c => c.Text).NotEmpty().MaximumLength(1000);
     }
 }

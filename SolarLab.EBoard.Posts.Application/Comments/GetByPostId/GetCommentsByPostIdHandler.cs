@@ -14,7 +14,7 @@ public class GetCommentsByPostIdHandler : IRequestHandler<GetCommentsByPostIdQue
 
     public async Task<IEnumerable<CommentDto>> Handle(GetCommentsByPostIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _commentsRepository.GetByPostIdAsync(request.AdPostId, cancellationToken);
+        var result = await _commentsRepository.GetByPostIdAsync(request.PostId, cancellationToken);
         return result.Select(c => new CommentDto(c.Id, c.PostId, c.UserId, c.Text));
     }
 }
