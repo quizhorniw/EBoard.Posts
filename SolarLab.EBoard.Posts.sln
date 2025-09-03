@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLab.EBoard.Posts.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLab.EBoard.Posts.Application", "SolarLab.EBoard.Posts.Application\SolarLab.EBoard.Posts.Application.csproj", "{6CC3B93D-88AB-4823-A80F-71F7F93732CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLab.EBoard.Infrastructure", "SolarLab.EBoard.Infrastructure\SolarLab.EBoard.Infrastructure.csproj", "{C2964A35-2CB0-4597-9FAF-EBD385EA6B66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarLab.EBoard.Posts.Infrastructure", "SolarLab.EBoard.Posts.Infrastructure\SolarLab.EBoard.Posts.Infrastructure.csproj", "{C2964A35-2CB0-4597-9FAF-EBD385EA6B66}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A75E3EB1-D89F-4D74-9C46-8F18337E16FA}"
 EndProject
