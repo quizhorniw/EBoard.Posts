@@ -22,7 +22,7 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasForeignKey(p => p.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
         
-        builder.OwnsMany<Image>(p => p.Images, b =>
+        builder.OwnsMany(p => p.Images, b =>
         {
             b.WithOwner().HasForeignKey("PostId");
             b.Property<int>("Id");

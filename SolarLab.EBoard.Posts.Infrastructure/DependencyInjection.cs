@@ -5,9 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
+using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
 using SolarLab.EBoard.Posts.Domain.Interfaces;
 using SolarLab.EBoard.Posts.Infrastructure.Authentication;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
+using SolarLab.EBoard.Posts.Infrastructure.Storage;
 
 namespace SolarLab.EBoard.Posts.Infrastructure;
 
@@ -23,6 +25,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.AddScoped<IStorageService, FileSystemStorageService>();
+        
         return services;
     }
     
