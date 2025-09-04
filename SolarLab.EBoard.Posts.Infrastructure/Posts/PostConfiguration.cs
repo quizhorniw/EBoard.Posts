@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using SolarLab.EBoard.Posts.Domain.ValueObjects;
 
 namespace SolarLab.EBoard.Posts.Infrastructure.Posts;
 

@@ -1,5 +1,5 @@
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
 using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
 using SolarLab.EBoard.Posts.Domain.Interfaces;
 using SolarLab.EBoard.Posts.Domain.ValueObjects;
@@ -10,11 +10,13 @@ public sealed class AddImagesToPostHandler : IRequestHandler<AddImagesToPostComm
 {
     private readonly IPostsRepository _postsRepository;
     private readonly IStorageService _storageService;
+    private readonly IUserContext _userContext;
 
-    public AddImagesToPostHandler(IPostsRepository postsRepository, IStorageService storageService)
+    public AddImagesToPostHandler(IPostsRepository postsRepository, IStorageService storageService, IUserContext userContext)
     {
         _postsRepository = postsRepository;
         _storageService = storageService;
+        _userContext = userContext;
     }
 
     public async Task Handle(AddImagesToPostCommand request, CancellationToken cancellationToken)
@@ -25,6 +27,11 @@ public sealed class AddImagesToPostHandler : IRequestHandler<AddImagesToPostComm
             throw new KeyNotFoundException("Post not found");
         }
 
+        if (_userContext.UserId != post.UserId)
+        {
+            throw new UnauthorizedAccessException("No permission to update this ad post");
+        }
+        
         foreach (var file in request.Files)
         {
             var fileName = await _storageService.SaveAsync(file, cancellationToken);

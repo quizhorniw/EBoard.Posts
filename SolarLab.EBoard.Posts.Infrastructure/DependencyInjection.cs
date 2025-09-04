@@ -26,6 +26,7 @@ public static class DependencyInjection
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IStorageService, FileSystemStorageService>();
+        services.AddScoped<IUrlProvider, FileSystemUrlProvider>();
         
         return services;
     }

@@ -7,7 +7,7 @@ public class AddImages : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/posts/{id:guid}/upload",
+        app.MapPost("/posts/{id:guid}/images",
             async (Guid id, HttpRequest request, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var files = request.Form.Files.ToList();
