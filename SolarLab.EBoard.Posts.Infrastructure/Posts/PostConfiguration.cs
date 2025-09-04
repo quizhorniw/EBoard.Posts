@@ -20,5 +20,16 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
             .WithMany()
             .HasForeignKey(p => p.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.OwnsMany(p => p.Images, b =>
+        {
+            b.WithOwner().HasForeignKey("PostId");
+            b.Property<int>("Id");
+            b.HasKey("Id");
+            
+            b.Property(i => i.FileName).IsRequired();
+            b.Property(i => i.MimeType).IsRequired();
+            b.Property(i => i.Size).IsRequired();
+        });
     }
 }

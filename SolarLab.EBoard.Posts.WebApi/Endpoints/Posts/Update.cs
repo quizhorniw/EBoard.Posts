@@ -17,7 +17,13 @@ internal sealed class Update : IEndpoint
         app.MapPut("/posts/{id:guid}",
             async (Guid id, Request request, IMediator mediator, CancellationToken cancellationToken) => 
             {
-                var command = new UpdatePostCommand(id, request.Title, request.Description, request.CategoryId, request.Price);
+                var command = new UpdatePostCommand(
+                    id,
+                    request.Title,
+                    request.Description,
+                    request.CategoryId,
+                    request.Price
+                    );
                 await mediator.Send(command, cancellationToken);
                 return Results.NoContent();
             })

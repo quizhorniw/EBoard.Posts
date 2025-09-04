@@ -25,7 +25,6 @@ public sealed class CreatePostHandler : IRequestHandler<CreatePostCommand, Guid>
             request.CategoryId,
             request.Price
             );
-        post.SetUserId(_userContext.UserId);
         
         await _postsRepository.AddAsync(post, cancellationToken);
         return post.Id;
