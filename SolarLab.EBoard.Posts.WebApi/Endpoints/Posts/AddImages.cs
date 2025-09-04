@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Posts.AddImages;
+using SolarLab.EBoard.Posts.Application.CQRS.Posts.AddImages;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Posts;
 

@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using SolarLab.EBoard.Posts.Application.Categories.Delete;
+using SolarLab.EBoard.Posts.Application.CQRS.Categories.Delete;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Categories;
 

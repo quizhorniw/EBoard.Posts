@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Categories.GetById;
+using SolarLab.EBoard.Posts.Application.CQRS.Categories.GetById;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Categories;
 

@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Posts.Delete;
+using SolarLab.EBoard.Posts.Application.CQRS.Posts.Delete;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Posts;
 

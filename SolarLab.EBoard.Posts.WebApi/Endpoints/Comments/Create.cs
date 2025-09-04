@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Comments.Create;
+using SolarLab.EBoard.Posts.Application.CQRS.Comments.Create;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Comments;
 
