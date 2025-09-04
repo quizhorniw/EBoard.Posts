@@ -32,7 +32,8 @@ public sealed class UpdatePostHandler : IRequestHandler<UpdatePostCommand>
             request.Title,
             request.Description,
             request.CategoryId,
-            request.Price
+            request.Price,
+            request.ImagePath
             );
         
         await _postsRepository.UpdateAsync(post, cancellationToken);

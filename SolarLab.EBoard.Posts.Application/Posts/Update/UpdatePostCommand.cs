@@ -7,5 +7,6 @@ public sealed record UpdatePostCommand(
     string Title,
     string? Description,
     Guid CategoryId,
-    decimal Price
+    decimal Price,
+    string? ImagePath
     ) : IRequest;

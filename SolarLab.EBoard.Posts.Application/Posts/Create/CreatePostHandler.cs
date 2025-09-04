@@ -23,7 +23,8 @@ public sealed class CreatePostHandler : IRequestHandler<CreatePostCommand, Guid>
             request.Title,
             request.Description,
             request.CategoryId,
-            request.Price
+            request.Price,
+            request.ImagePath
             );
         post.SetUserId(_userContext.UserId);
         

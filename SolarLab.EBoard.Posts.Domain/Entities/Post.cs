@@ -10,9 +10,10 @@ public class Post : Entity
     public Guid CategoryId { get; private set; }
     public decimal Price { get; private set; }
     public Guid UserId { get; private set; }
+    public string? ImagePath { get; private set; }
     public DateTime CreatedAt { get; private set; }
     
-    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price)
+    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price, string? imagePath)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -30,10 +31,11 @@ public class Post : Entity
         Description = description;
         CategoryId = categoryId;
         Price = price;
+        ImagePath = imagePath;
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void UpdateDetails(string title, string? description, Guid categoryId, decimal price)
+    public void UpdateDetails(string title, string? description, Guid categoryId, decimal price, string? imagePath)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -49,6 +51,7 @@ public class Post : Entity
         Description = description;
         CategoryId = categoryId;
         Price = price;
+        ImagePath = imagePath;
     }
 
     public void SetUserId(Guid userId)
