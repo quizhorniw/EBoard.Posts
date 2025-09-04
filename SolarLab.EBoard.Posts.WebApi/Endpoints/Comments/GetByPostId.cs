@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SolarLab.EBoard.Posts.Application.Comments.GetByPostId;
+using SolarLab.EBoard.Posts.Application.CQRS.Comments.GetByPostId;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Comments;
 

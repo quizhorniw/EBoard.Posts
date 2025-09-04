@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Comments.Delete;
+using SolarLab.EBoard.Posts.Application.CQRS.Comments.Delete;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Comments;
 

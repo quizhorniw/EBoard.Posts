@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using SolarLab.EBoard.Posts.Application.Categories.Create;
+using SolarLab.EBoard.Posts.Application.CQRS.Categories.Create;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Categories;
 

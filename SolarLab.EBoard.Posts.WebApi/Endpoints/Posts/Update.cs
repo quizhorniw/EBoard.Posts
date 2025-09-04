@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Application.Posts.Update;
+using SolarLab.EBoard.Posts.Application.CQRS.Posts.Update;
 
 namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Posts;
 
