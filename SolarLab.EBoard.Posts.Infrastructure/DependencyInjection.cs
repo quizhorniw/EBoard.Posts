@@ -29,7 +29,7 @@ public static class DependencyInjection
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(opts => opts
-            .UseNpgsql(configuration.GetConnectionString("EBoardPostgres"))
+            .UseNpgsql(configuration.GetConnectionString("PostgresPostsDB"))
             .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IPostsRepository, PostsRepository>();
