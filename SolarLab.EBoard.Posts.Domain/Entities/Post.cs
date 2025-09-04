@@ -1,4 +1,5 @@
 using SolarLab.EBoard.Posts.Domain.Commons;
+using SolarLab.EBoard.Posts.Domain.ValueObjects;
 
 namespace SolarLab.EBoard.Posts.Domain.Entities;
 
@@ -10,10 +11,10 @@ public class Post : Entity
     public Guid CategoryId { get; private set; }
     public decimal Price { get; private set; }
     public Guid UserId { get; private set; }
-    public string? ImagePath { get; private set; }
+    public List<Image> Images { get; private set; }
     public DateTime CreatedAt { get; private set; }
     
-    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price, string? imagePath)
+    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -31,11 +32,11 @@ public class Post : Entity
         Description = description;
         CategoryId = categoryId;
         Price = price;
-        ImagePath = imagePath;
+        Images = [];
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void UpdateDetails(string title, string? description, Guid categoryId, decimal price, string? imagePath)
+    public void UpdateDetails(string title, string? description, Guid categoryId, decimal price)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -51,11 +52,9 @@ public class Post : Entity
         Description = description;
         CategoryId = categoryId;
         Price = price;
-        ImagePath = imagePath;
     }
 
-    public void SetUserId(Guid userId)
-    {
-        UserId = userId;
-    }
+    public void AddImage(Image image) => Images.Add(image);
+    
+    public void DeleteImage(Image image) => Images.Remove(image);
 }

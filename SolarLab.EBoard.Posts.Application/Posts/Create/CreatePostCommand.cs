@@ -6,6 +6,5 @@ public sealed record CreatePostCommand(
     string Title,
     string? Description,
     Guid CategoryId,
-    decimal Price,
-    string? ImagePath
+    decimal Price
     ) : IRequest<Guid>;

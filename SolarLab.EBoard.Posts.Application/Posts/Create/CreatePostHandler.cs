@@ -23,10 +23,8 @@ public sealed class CreatePostHandler : IRequestHandler<CreatePostCommand, Guid>
             request.Title,
             request.Description,
             request.CategoryId,
-            request.Price,
-            request.ImagePath
+            request.Price
             );
-        post.SetUserId(_userContext.UserId);
         
         await _postsRepository.AddAsync(post, cancellationToken);
         return post.Id;

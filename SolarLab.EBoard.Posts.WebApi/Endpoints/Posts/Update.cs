@@ -9,8 +9,7 @@ internal sealed class Update : IEndpoint
         string Title,
         string? Description,
         Guid CategoryId,
-        decimal Price,
-        string? ImagePath
+        decimal Price
     );
     
     public void MapEndpoint(IEndpointRouteBuilder app)
@@ -23,8 +22,7 @@ internal sealed class Update : IEndpoint
                     request.Title,
                     request.Description,
                     request.CategoryId,
-                    request.Price,
-                    request.ImagePath
+                    request.Price
                     );
                 await mediator.Send(command, cancellationToken);
                 return Results.NoContent();

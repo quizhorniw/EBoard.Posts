@@ -9,8 +9,7 @@ internal sealed class Create : IEndpoint
         string Title,
         string? Description,
         Guid CategoryId,
-        decimal Price,
-        string? ImagePath
+        decimal Price
         );
     
     public void MapEndpoint(IEndpointRouteBuilder app)
@@ -21,8 +20,7 @@ internal sealed class Create : IEndpoint
                     request.Title,
                     request.Description,
                     request.CategoryId,
-                    request.Price,
-                    request.ImagePath
+                    request.Price
                     );
                 var result = await mediator.Send(command, cancellationToken);
                 return Results.CreatedAtRoute(GetById.EndpointName, new { id = result }, result);
