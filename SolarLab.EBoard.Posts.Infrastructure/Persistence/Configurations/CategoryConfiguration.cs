@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SolarLab.EBoard.Posts.Domain.Entities;
 
-namespace SolarLab.EBoard.Posts.Infrastructure.Categories;
+namespace SolarLab.EBoard.Posts.Infrastructure.Persistence.Configurations;
 
 internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {

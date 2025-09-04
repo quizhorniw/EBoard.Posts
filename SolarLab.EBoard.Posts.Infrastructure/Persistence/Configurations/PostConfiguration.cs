@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SolarLab.EBoard.Posts.Domain.Entities;
 
-namespace SolarLab.EBoard.Posts.Infrastructure.Posts;
+namespace SolarLab.EBoard.Posts.Infrastructure.Persistence.Configurations;
 
 internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
 {
