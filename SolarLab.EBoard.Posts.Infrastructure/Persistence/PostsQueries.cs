@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
-using SolarLab.EBoard.Posts.Application.CQRS.Posts;
+using SolarLab.EBoard.Posts.Application.ReadModels;
 using SolarLab.EBoard.Posts.Domain.Commons;
-using SolarLab.EBoard.Posts.Domain.Entities;
 
 namespace SolarLab.EBoard.Posts.Infrastructure.Persistence;
 
@@ -73,7 +72,7 @@ public class PostsQueries : IPostsQueries
     
     public async Task<PostReadModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var result =  await _context.Posts.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        var result = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         if (result is null) return null;
 
         return new PostReadModel(

@@ -1,4 +1,5 @@
 using MediatR;
+using SolarLab.EBoard.Posts.Application.ReadModels;
 using SolarLab.EBoard.Posts.Domain.Commons;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Posts.Search;

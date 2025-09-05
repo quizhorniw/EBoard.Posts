@@ -1,5 +1,6 @@
 using MediatR;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Application.ReadModels;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Posts.GetById;
 
