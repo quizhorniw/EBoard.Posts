@@ -12,11 +12,6 @@ public class PostsRepository : IPostsRepository
     {
         _context = context;
     }
-    
-    public async Task<IEnumerable<Post>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.Posts.ToListAsync(cancellationToken);
-    }
 
     public async Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
