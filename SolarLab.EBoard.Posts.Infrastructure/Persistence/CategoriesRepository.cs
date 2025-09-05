@@ -13,11 +13,6 @@ public class CategoriesRepository : ICategoriesRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.Categories.ToListAsync(cancellationToken);
-    }
-
     public async Task<Category?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);

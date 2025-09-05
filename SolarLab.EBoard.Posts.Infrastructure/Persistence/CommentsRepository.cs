@@ -13,12 +13,6 @@ public class CommentsRepository : ICommentsRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Comment>> GetByPostIdAsync(Guid adPostId, CancellationToken cancellationToken = default)
-    {
-        return await _context.Comments.Where(c => c.PostId == adPostId)
-            .ToListAsync(cancellationToken);
-    }
-
     public async Task<Comment?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Comments.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);

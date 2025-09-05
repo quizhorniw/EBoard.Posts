@@ -1,4 +1,4 @@
-namespace SolarLab.EBoard.Posts.Application.CQRS.Posts;
+namespace SolarLab.EBoard.Posts.Application.ReadModels;
 
 public sealed record PostReadModel(
     Guid Id,

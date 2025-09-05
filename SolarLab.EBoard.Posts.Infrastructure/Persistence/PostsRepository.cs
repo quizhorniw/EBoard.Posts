@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
-using SolarLab.EBoard.Posts.Domain.Commons;
 using SolarLab.EBoard.Posts.Domain.Entities;
 
 namespace SolarLab.EBoard.Posts.Infrastructure.Persistence;
