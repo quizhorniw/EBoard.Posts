@@ -42,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<ICategoriesQueries, CategoriesQueries>();
         services.AddScoped<ICommentsRepository, CommentsRepository>();
+        services.AddScoped<ICommentsQueries, CommentsQueries>();
         
         return services;
     }

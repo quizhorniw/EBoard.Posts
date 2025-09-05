@@ -1,20 +1,20 @@
 using MediatR;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Application.ReadModels;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Comments.GetById;
 
-public sealed class GetCommentByIdHandler : IRequestHandler<GetCommentByIdQuery, CommentDto?>
+public sealed class GetCommentByIdHandler : IRequestHandler<GetCommentByIdQuery, CommentReadModel?>
 {
-    private readonly ICommentsRepository _commentsRepository;
+    private readonly ICommentsQueries _commentsQueries;
 
-    public GetCommentByIdHandler(ICommentsRepository commentsRepository)
+    public GetCommentByIdHandler(ICommentsQueries commentsQueries)
     {
-        _commentsRepository = commentsRepository;
+        _commentsQueries = commentsQueries;
     }
 
-    public async Task<CommentDto?> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CommentReadModel?> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _commentsRepository.GetByIdAsync(request.Id, cancellationToken);
-        return result is null ? null : new CommentDto(result.Id, result.PostId, result.UserId, result.Text);
+        return await _commentsQueries.GetByIdAsync(request.Id, cancellationToken);
     }
 }
