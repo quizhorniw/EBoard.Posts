@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Domain.Commons;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
 
 namespace SolarLab.EBoard.Posts.Infrastructure.Persistence;
 
@@ -11,11 +12,6 @@ public class PostsRepository : IPostsRepository
     public PostsRepository(AppDbContext context)
     {
         _context = context;
-    }
-    
-    public async Task<IEnumerable<Post>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.Posts.ToListAsync(cancellationToken);
     }
 
     public async Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

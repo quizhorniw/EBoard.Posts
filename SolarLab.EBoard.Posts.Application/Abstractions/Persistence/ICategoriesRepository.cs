@@ -1,6 +1,6 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
 
-namespace SolarLab.EBoard.Posts.Domain.Interfaces;
+namespace SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 
 public interface ICategoriesRepository
 {

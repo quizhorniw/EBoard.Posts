@@ -1,6 +1,6 @@
 using MediatR;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Posts.GetAllImages;
 
