@@ -5,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
 using SolarLab.EBoard.Posts.Infrastructure.Authentication;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
 using SolarLab.EBoard.Posts.Infrastructure.Storage;
@@ -38,6 +38,7 @@ public static class DependencyInjection
             .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IPostsRepository, PostsRepository>();
+        services.AddScoped<IPostsQueries, PostsQueries>();
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<ICommentsRepository, CommentsRepository>();
         

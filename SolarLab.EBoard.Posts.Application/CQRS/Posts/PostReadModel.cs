@@ -1,6 +1,6 @@
 namespace SolarLab.EBoard.Posts.Application.CQRS.Posts;
 
-public sealed record PostDto(
+public sealed record PostReadModel(
     Guid Id,
     string Title,
     string? Description,

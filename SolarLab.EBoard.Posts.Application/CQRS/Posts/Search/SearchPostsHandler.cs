@@ -1,21 +1,21 @@
-using System.Collections.Immutable;
 using MediatR;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Domain.Commons;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Posts.Search;
 
-public sealed class SearchPostsHandler : IRequestHandler<SearchPostsQuery, IReadOnlyList<PostDto>>
+public sealed class SearchPostsHandler : IRequestHandler<SearchPostsQuery, PagedResult<PostReadModel>>
 {
-    private readonly IPostsRepository _postsRepository;
+    private readonly IPostsQueries _postsQueries;
 
-    public SearchPostsHandler(IPostsRepository postsRepository)
+    public SearchPostsHandler(IPostsQueries postsQueries)
     {
-        _postsRepository = postsRepository;
+        _postsQueries = postsQueries;
     }
 
-    public async Task<IReadOnlyList<PostDto>> Handle(SearchPostsQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<PostReadModel>> Handle(SearchPostsQuery request, CancellationToken cancellationToken)
     {
-        var result = await _postsRepository.SearchAsync(
+        return await _postsQueries.SearchAsync(
             request.Title,
             request.CategoryId,
             request.UserId,
@@ -25,15 +25,5 @@ public sealed class SearchPostsHandler : IRequestHandler<SearchPostsQuery, IRead
             request.PageSize,
             cancellationToken
             );
-
-        return result.Select(p => new PostDto(
-            p.Id,
-            p.Title,
-            p.Description, 
-            p.CategoryId,
-            p.Price,
-            p.UserId,
-            p.CreatedAt
-            )).ToImmutableList();
     }
 }

@@ -1,5 +1,5 @@
 using MediatR;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Categories.GetAll;
 

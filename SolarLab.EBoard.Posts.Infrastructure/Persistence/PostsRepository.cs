@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Domain.Commons;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
 
 namespace SolarLab.EBoard.Posts.Infrastructure.Persistence;
 
@@ -11,50 +12,6 @@ public class PostsRepository : IPostsRepository
     public PostsRepository(AppDbContext context)
     {
         _context = context;
-    }
-
-    public async Task<IEnumerable<Post>> SearchAsync(
-        string? title,
-        Guid? categoryId,
-        Guid? userId,
-        decimal? minPrice,
-        decimal? maxPrice, 
-        int page,
-        int pageSize,
-        CancellationToken cancellationToken = default)
-    {
-        var query = _context.Posts.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(title))
-        {
-            query = query.Where(p => EF.Functions.Like(p.Title, $"%{title}%"));
-        }
-
-        if (categoryId.HasValue)
-        {
-            query = query.Where(p => p.CategoryId == categoryId.Value);
-        }
-
-        if (userId.HasValue)
-        {
-            query = query.Where(p => p.UserId == userId.Value);
-        }
-
-        if (minPrice.HasValue)
-        {
-            query = query.Where(p => p.Price >= minPrice.Value);
-        }
-
-        if (maxPrice.HasValue)
-        {
-            query = query.Where(p => p.Price <= maxPrice.Value);
-        }
-
-        return await query
-            .OrderByDescending(p => p.CreatedAt)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync(cancellationToken);
     }
 
     public async Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

@@ -1,7 +1,7 @@
 using MediatR;
 using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
+using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using SolarLab.EBoard.Posts.Domain.Interfaces;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Comments.Create;
 
