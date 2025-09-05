@@ -1,20 +1,20 @@
 using MediatR;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
+using SolarLab.EBoard.Posts.Application.ReadModels;
 
 namespace SolarLab.EBoard.Posts.Application.CQRS.Categories.GetById;
 
-public class GetCategoryByIdHandler : IRequestHandler<GetCategoryByIdQuery, CategoryDto?>
+public class GetCategoryByIdHandler : IRequestHandler<GetCategoryByIdQuery, CategoryReadModel?>
 {
-    private readonly ICategoriesRepository _categoriesRepository;
+    private readonly ICategoriesQueries _categoriesQueries;
 
-    public GetCategoryByIdHandler(ICategoriesRepository categoriesRepository)
+    public GetCategoryByIdHandler(ICategoriesQueries categoriesQueries)
     {
-        _categoriesRepository = categoriesRepository;
+        _categoriesQueries = categoriesQueries;
     }
 
-    public async Task<CategoryDto?> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CategoryReadModel?> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _categoriesRepository.GetByIdAsync(request.Id, cancellationToken);
-        return result is not null ? new CategoryDto(result.Id, result.Name, result.ParentId) : null;
+        return await _categoriesQueries.GetByIdAsync(request.Id, cancellationToken);
     }
 }
