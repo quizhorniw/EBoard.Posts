@@ -293,7 +293,7 @@ public class UpdatePostCommandTests
     }
     
     [Fact]
-    public void UpdatePost_NotByOwnerOrAdministrator_DoesNotUpdatePostInDatabase()
+    public async Task UpdatePost_NotByOwnerOrAdministrator_DoesNotUpdatePostInDatabase()
     {
         // Arrange
         var post = new Post(
@@ -319,6 +319,14 @@ public class UpdatePostCommandTests
         _userContextMock.Setup(c => c.UserId).Returns(differentUserGuid);
         
         // Act
+        try
+        {
+            await _handler.Handle(request, CancellationToken.None);
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
+        
         // Assert
         _postsRepositoryMock.Verify(r => r.UpdateAsync(post, It.IsAny<CancellationToken>()), 
             Times.Never);
