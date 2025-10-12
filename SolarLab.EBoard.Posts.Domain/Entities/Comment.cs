@@ -27,5 +27,13 @@ public class Comment : Entity
     public static Comment Create(Guid postId, Guid userId, string text, DateTime createdAt) =>
         new(postId, userId, text, createdAt);
     
-    public void ChangeText(string newText) => Text = newText;
+    public void ChangeText(string newText)
+    {
+        if (string.IsNullOrWhiteSpace(newText))
+        {
+            throw new ArgumentException("Comment cannot be empty", nameof(newText));
+        }
+        
+        Text = newText.Trim();
+    }
 }
