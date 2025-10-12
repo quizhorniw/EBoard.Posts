@@ -22,4 +22,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.Domain\SolarLab.EBoard.Posts.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
