@@ -1,10 +1,16 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
+using SolarLab.EBoard.Posts.Domain.ValueObjects;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Domain;
 
 public class PostTests
 {
-    private readonly DateTime _testDateTime = new(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    private const string TestTitle = "Title";
+    private const string TestDescription = "Description";
+    private static readonly Guid TestCategoryId = Guid.Parse("996b8bcc-d09e-4818-b19a-1c458903f041");
+    private const decimal TestPrice = 99.99m;
+    private static readonly Guid TestUserId = Guid.Parse("5e58d996-0994-4fae-8af0-47b60ae4e567");
+    private static readonly DateTime TestDateTime = new(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
     
     [Theory]
     [InlineData("Title 1", "Description 1", "996b8bcc-d09e-4818-b19a-1c458903f041", 11.11, 
@@ -31,7 +37,7 @@ public class PostTests
             description,
             categoryIdGuid,
             price,
-            _testDateTime);
+            TestDateTime);
         
         // Assert
         Assert.NotEqual(Guid.Empty, result.Id);
@@ -40,7 +46,7 @@ public class PostTests
         Assert.Equal(categoryIdGuid, result.CategoryId);
         Assert.Equal(price, result.Price);
         Assert.Equal(userIdGuid, result.UserId);
-        Assert.Equal(_testDateTime, result.CreatedAt);
+        Assert.Equal(TestDateTime, result.CreatedAt);
     }
 
     [Theory]
@@ -52,41 +58,152 @@ public class PostTests
     public void CreatPost_WithNullOrWhitespaceTitle_Throws(string title)
     {
         // Arrange
-        var description = "Description";
-        var categoryId = Guid.Parse("5e58d996-0994-4fae-8af0-47b60ae4e567");
-        var price = 99.99m;
-        var userId = Guid.Parse("1a89f33f-a5ad-48b8-81fb-346d84e02ab9");
-        
         // Act
         // Assert
         Assert.Throws<ArgumentException>(() => new Post(
-            userId,
+            TestUserId,
             title,
-            description,
-            categoryId,
-            price,
-            _testDateTime));
+            TestDescription,
+            TestCategoryId,
+            TestPrice,
+            TestDateTime));
     }
 
     [Theory]
     [InlineData(-1)]
     [InlineData(-999)]
+    [InlineData(-3579)]
     public void CreatePost_WithNegativePrice_Throws(decimal price)
     {
         // Arrange
-        var title = "Title";
-        var description = "Description";
-        var categoryId = Guid.Parse("5e58d996-0994-4fae-8af0-47b60ae4e567");
-        var userId = Guid.Parse("1a89f33f-a5ad-48b8-81fb-346d84e02ab9");
-
         // Act
         // Assert
         Assert.Throws<ArgumentException>(() => new Post(
-            userId,
-            title,
-            description,
-            categoryId,
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
             price,
-            _testDateTime));
+            TestDateTime));
+    }
+
+    [Theory]
+    [InlineData("Title 1", "Description 1", "996b8bcc-d09e-4818-b19a-1c458903f041", 11.11)]
+    [InlineData("Test title 2", "Some description 2", "5af5f83b-6edb-47a6-9f77-d9247f7ce852", 99.22)]
+    [InlineData("Another title 3", null, "c0a85fd9-b86b-415b-957d-4cdb87fe5423", 30.00)]
+    [InlineData("4-title", "DeScRiPtIoN | 4", "1a89f33f-a5ad-48b8-81fb-346d84e02ab9", 0.00)]
+    [InlineData("t i t l e # 5", "d-e-s-c-r-i-p-t-i-o-n-5", "4bc1387a-14b1-4fb8-bf42-9a3e18522533", 10.01)]
+    public void UpdatePostDetails_WithValidData_UpdatesPostDetails(string title, string? description, string categoryId, 
+        decimal price)
+    {
+        // Arrange
+        var categoryIdGuid = Guid.Parse(categoryId);
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice, 
+            TestDateTime);
+        
+        // Act
+        post.UpdateDetails(title, description, categoryIdGuid, price);
+        
+        // Assert
+        Assert.Equal(TestUserId, post.UserId); // UserId shouldn't have been changed
+        Assert.Equal(title, post.Title);
+        Assert.Equal(description, post.Description);
+        Assert.Equal(categoryIdGuid, post.CategoryId);
+        Assert.Equal(price, post.Price);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("\n")]
+    [InlineData(" \n\r  \t")]
+    public void UpdatePostDetails_WithNullOrWhitespaceTitle_Throws(string title)
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice, 
+            TestDateTime);
+        
+        // Act
+        // Assert
+        Assert.Throws<ArgumentException>(() => post.UpdateDetails(title, TestDescription, TestCategoryId, TestPrice));
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(-999)]
+    [InlineData(-3579)]
+    public void UpdatePostDetails_WithNegativePrice_Throws(decimal price)
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice, 
+            TestDateTime);
+        
+        // Act
+        // Assert
+        Assert.Throws<ArgumentException>(() => post.UpdateDetails(TestTitle, TestDescription, TestCategoryId, price));
+    }
+
+    [Theory]
+    [InlineData("pic1.jpeg", "image/jpeg", 1000)]
+    [InlineData("pic2.png", "image/png", 720)]
+    [InlineData("pic3-abc.png", "image/png", 590)]
+    public void AddImageToPost_AddsImageToPost(string fileName, string mimeType, long size)
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice, 
+            TestDateTime);
+        
+        var image = new Image(fileName, mimeType, size);
+        
+        // Act
+        post.AddImage(image);
+        
+        // Assert
+        Assert.Contains(image, post.Images);
+        Assert.Equal(1, post.Images.Count);
+    }
+
+    [Fact]
+    public void DeleteImageFromPost_DeletesImageFromPost()
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice, 
+            TestDateTime);
+        
+        var image = new Image("pic1.jpeg", "image/jpeg", 1000);
+        post.AddImage(image);
+        
+        // Act
+        post.DeleteImage(image);
+
+        // Assert
+        Assert.DoesNotContain(image, post.Images);
+        Assert.Equal(0, post.Images.Count);
     }
 }
