@@ -10,7 +10,7 @@ public class Comment : Entity
     public string Text { get; private set; }
     public DateTime CreatedAt { get; private set; }
     
-    private Comment(Guid postId, Guid userId, string text)
+    private Comment(Guid postId, Guid userId, string text, DateTime createdAt)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -21,10 +21,11 @@ public class Comment : Entity
         PostId = postId;
         UserId = userId;
         Text = text.Trim();
-        CreatedAt = DateTime.UtcNow;
+        CreatedAt = createdAt;
     }
 
-    public static Comment Create(Guid postId, Guid userId, string text) => new(postId, userId, text);
+    public static Comment Create(Guid postId, Guid userId, string text, DateTime createdAt) =>
+        new(postId, userId, text, createdAt);
     
     public void ChangeText(string newText) => Text = newText;
 }

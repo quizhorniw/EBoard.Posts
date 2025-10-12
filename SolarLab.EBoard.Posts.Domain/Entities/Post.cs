@@ -14,7 +14,7 @@ public class Post : Entity
     public List<Image> Images { get; private set; }
     public DateTime CreatedAt { get; private set; }
     
-    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price)
+    public Post(Guid userId, string title, string? description, Guid categoryId, decimal price, DateTime createdAt)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -33,7 +33,7 @@ public class Post : Entity
         CategoryId = categoryId;
         Price = price;
         Images = [];
-        CreatedAt = DateTime.UtcNow;
+        CreatedAt = createdAt;
     }
 
     public void UpdateDetails(string title, string? description, Guid categoryId, decimal price)
