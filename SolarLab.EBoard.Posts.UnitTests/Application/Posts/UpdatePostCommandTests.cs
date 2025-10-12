@@ -113,4 +113,214 @@ public class UpdatePostCommandTests
                     It.IsAny<CancellationToken>()), 
             Times.Once);
     }
+
+    [Fact]
+    public async Task UpdatePost_NotExistingInDatabase_Throws()
+    {
+        // Arrange
+        var id = Guid.Parse("ea376ca4-62b8-480e-8400-06a52782fdec");
+        var request = new UpdatePostCommand(
+            id,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(null as Post);
+        
+        // Act
+        // Assert
+        await Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
+    }
+    
+    [Fact]
+    public async Task UpdatePost_NotExistingInDatabase_DoesNotUpdatePostInDatabase()
+    {
+        // Arrange
+        var id = Guid.Parse("ea376ca4-62b8-480e-8400-06a52782fdec");
+        var request = new UpdatePostCommand(
+            id,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(null as Post);
+        
+        // Act
+        try
+        {
+            await _handler.Handle(request, CancellationToken.None);
+        }
+        catch (KeyNotFoundException)
+        {
+        }
+        
+        // Assert
+        _postsRepositoryMock.Verify(r => 
+                r.UpdateAsync(It.IsAny<Post>(), It.IsAny<CancellationToken>()), 
+            Times.Never);
+    }
+    
+    [Fact]
+    public async Task UpdatePost_ByAdministrator_UpdatesPostDetails()
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice,
+            TestDateTime);
+
+        var updatedTitle = "Updated title";
+        var updatedDescription = "Updated description";
+        var updatedCategoryId = Guid.Parse("ea376ca4-62b8-480e-8400-06a52782fdec");
+        var updatedPrice = 299.99m;
+        var request = new UpdatePostCommand(
+            post.Id,
+            updatedTitle,
+            updatedDescription,
+            updatedCategoryId,
+            updatedPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(request.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(post);
+        _userContextMock.Setup(c => c.IsInRole("Admin")).Returns(true);
+        
+        var differentUserGuid = Guid.Parse("f06eb5d0-42ea-47dd-8322-5dcb76938886");
+        _userContextMock.Setup(c => c.UserId).Returns(differentUserGuid);
+        
+        Post? capturedPost = null;
+        _postsRepositoryMock
+            .Setup(r => r.UpdateAsync(It.IsAny<Post>(), It.IsAny<CancellationToken>()))
+            .Callback<Post, CancellationToken>((p, _) => capturedPost = p)
+            .Returns(Task.CompletedTask);
+        
+        // Act
+        await _handler.Handle(request, CancellationToken.None);
+        
+        // Assert
+        Assert.NotNull(capturedPost);
+        Assert.Equal(updatedTitle, capturedPost.Title);
+        Assert.Equal(updatedDescription, capturedPost.Description);
+        Assert.Equal(updatedCategoryId, capturedPost.CategoryId);
+        Assert.Equal(updatedPrice, capturedPost.Price);
+    }
+    
+    [Fact]
+    public async Task UpdatePost_ByAdministrator_UpdatesPostInDatabase()
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice,
+            TestDateTime);
+
+        var updatedTitle = "Updated title";
+        var updatedDescription = "Updated description";
+        var updatedCategoryId = Guid.Parse("ea376ca4-62b8-480e-8400-06a52782fdec");
+        var updatedPrice = 299.99m;
+        var request = new UpdatePostCommand(
+            post.Id,
+            updatedTitle,
+            updatedDescription,
+            updatedCategoryId,
+            updatedPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(request.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(post);
+        _userContextMock.Setup(c => c.IsInRole("Admin")).Returns(true);
+        
+        var differentUserGuid = Guid.Parse("f06eb5d0-42ea-47dd-8322-5dcb76938886");
+        _userContextMock.Setup(c => c.UserId).Returns(differentUserGuid);
+        
+        // Act
+        await _handler.Handle(request, CancellationToken.None);
+        
+        // Assert
+        _postsRepositoryMock.Verify(r => 
+                r.UpdateAsync(It.Is<Post>(p =>
+                        Guid.Empty != p.Id &&
+                        TestUserId == p.UserId &&
+                        updatedTitle == p.Title &&
+                        updatedDescription == p.Description &&
+                        updatedCategoryId == p.CategoryId &&
+                        updatedPrice == p.Price),
+                    It.IsAny<CancellationToken>()), 
+            Times.Once);
+    }
+    
+    [Fact]
+    public async Task UpdatePost_NotByOwnerOrAdministrator_Throws()
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice,
+            TestDateTime);
+        var request = new UpdatePostCommand(
+            post.Id,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(request.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(post);
+        _userContextMock.Setup(c => c.IsInRole("Admin")).Returns(false);
+        
+        var differentUserGuid = Guid.Parse("f06eb5d0-42ea-47dd-8322-5dcb76938886");
+        _userContextMock.Setup(c => c.UserId).Returns(differentUserGuid);
+        
+        // Act
+        // Assert
+        await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _handler.Handle(request, CancellationToken.None));
+    }
+    
+    [Fact]
+    public void UpdatePost_NotByOwnerOrAdministrator_DoesNotUpdatePostInDatabase()
+    {
+        // Arrange
+        var post = new Post(
+            TestUserId,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice,
+            TestDateTime);
+        var request = new UpdatePostCommand(
+            post.Id,
+            TestTitle,
+            TestDescription,
+            TestCategoryId,
+            TestPrice);
+
+        _postsRepositoryMock
+            .Setup(r => r.GetByIdAsync(request.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(post);
+        _userContextMock.Setup(c => c.IsInRole("Admin")).Returns(false);
+        
+        var differentUserGuid = Guid.Parse("f06eb5d0-42ea-47dd-8322-5dcb76938886");
+        _userContextMock.Setup(c => c.UserId).Returns(differentUserGuid);
+        
+        // Act
+        // Assert
+        _postsRepositoryMock.Verify(r => r.UpdateAsync(post, It.IsAny<CancellationToken>()), 
+            Times.Never);
+    }
 }
