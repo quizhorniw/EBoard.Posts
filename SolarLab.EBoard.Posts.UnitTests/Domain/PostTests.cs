@@ -1,17 +1,11 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
 using SolarLab.EBoard.Posts.Domain.ValueObjects;
+using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Domain;
 
 public class PostTests
 {
-    private const string TestTitle = "Title";
-    private const string TestDescription = "Description";
-    private static readonly Guid TestCategoryId = Guid.Parse("996b8bcc-d09e-4818-b19a-1c458903f041");
-    private const decimal TestPrice = 99.99m;
-    private static readonly Guid TestUserId = Guid.Parse("5e58d996-0994-4fae-8af0-47b60ae4e567");
-    private static readonly DateTime TestDateTime = new(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    
     [Theory]
     [InlineData("Title 1", "Description 1", "996b8bcc-d09e-4818-b19a-1c458903f041", 11.11, 
         "5e58d996-0994-4fae-8af0-47b60ae4e567")]

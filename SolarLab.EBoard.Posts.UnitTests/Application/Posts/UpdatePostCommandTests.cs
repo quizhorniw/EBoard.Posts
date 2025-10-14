@@ -3,7 +3,7 @@ using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.CQRS.Posts.Update;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using static SolarLab.EBoard.Posts.UnitTests.Application.Posts.TestPostConstants;
+using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Application.Posts;
 

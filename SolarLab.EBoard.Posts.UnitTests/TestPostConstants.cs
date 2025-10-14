@@ -1,4 +1,4 @@
-namespace SolarLab.EBoard.Posts.UnitTests.Application.Posts;
+namespace SolarLab.EBoard.Posts.UnitTests;
 
 public class TestPostConstants
 {
