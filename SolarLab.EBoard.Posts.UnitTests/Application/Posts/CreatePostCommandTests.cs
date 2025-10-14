@@ -52,14 +52,14 @@ public class CreatePostCommandTests
         // Assert
         _postsRepositoryMock.Verify(r => 
                 r.AddAsync(It.Is<Post>(p => 
-                    Guid.Empty != p.Id &&
-                    TestUserId == p.UserId &&
-                    title == p.Title &&
-                    description == p.Description &&
-                    categoryIdGuid == p.CategoryId &&
-                    price == p.Price &&
-                    _dateTimeProvider.UtcNow == p.CreatedAt), 
-                    It.IsAny<CancellationToken>()),
+                        Guid.Empty != p.Id &&
+                        TestUserId == p.UserId &&
+                        title == p.Title &&
+                        description == p.Description &&
+                        categoryIdGuid == p.CategoryId &&
+                        price == p.Price &&
+                        _dateTimeProvider.UtcNow == p.CreatedAt), 
+                    It.IsAny<CancellationToken>()), 
             Times.Once);
     }
 

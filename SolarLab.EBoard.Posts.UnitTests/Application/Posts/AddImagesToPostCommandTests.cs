@@ -100,8 +100,10 @@ public class AddImagesToPostCommandTests
         await _handler.Handle(request, CancellationToken.None);
         
         // Assert
-        _postsRepositoryMock.Verify(r => r.UpdateAsync(It.Is<Post>(p => p.Images.Count == images.Count), 
-            It.IsAny<CancellationToken>()));
+        _postsRepositoryMock.Verify(r => 
+            r.UpdateAsync(It.Is<Post>(p => p.Images.Count == images.Count),
+                It.IsAny<CancellationToken>()),
+            Times.Once);
     }
     
     [Fact]
@@ -126,7 +128,7 @@ public class AddImagesToPostCommandTests
     }
 
     [Fact]
-    public async Task AddImagesToPost_ExistingInDatabaseRequestingNotByOwner_Throws()
+    public async Task AddImagesToPost_ExistingInDatabaseAndRequestedNotByOwner_Throws()
     {
         // Arrange
         var postId = Guid.Parse("db7d31df-ac09-4caf-a793-a46fc13587c8");
