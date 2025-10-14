@@ -3,6 +3,7 @@ using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.CQRS.Comments.Delete;
 using SolarLab.EBoard.Posts.Domain.Entities;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Application.Comments;
 
@@ -12,10 +13,6 @@ public class DeleteCommentCommandTests
     private readonly Mock<IUserContext> _userContextMock;
     private readonly DeleteCommentHandler _handler;
 
-    private static readonly Guid TestPostId = Guid.Parse("ab5d4b82-dc94-4882-858b-c8c1c9d97824");
-    private static readonly Guid TestUserId = Guid.Parse("81907b99-c40e-475b-b1f5-d533dc1f7164");
-    private static readonly DateTime TestDateTime = new(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    
     public DeleteCommentCommandTests()
     {
         _commentsRepositoryMock = new Mock<ICommentsRepository>();

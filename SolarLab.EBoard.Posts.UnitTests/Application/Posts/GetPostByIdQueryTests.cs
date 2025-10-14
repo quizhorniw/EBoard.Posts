@@ -2,7 +2,7 @@ using Moq;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.CQRS.Posts.GetById;
 using SolarLab.EBoard.Posts.Application.ReadModels;
-using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Application.Posts;
 

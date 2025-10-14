@@ -4,7 +4,7 @@ using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.Abstractions.Time;
 using SolarLab.EBoard.Posts.Application.CQRS.Posts.Create;
 using SolarLab.EBoard.Posts.Domain.Entities;
-using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Application.Posts;
 

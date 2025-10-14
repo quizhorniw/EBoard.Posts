@@ -1,12 +1,10 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Domain;
 
 public class CategoryTests
 {
-    private const string TestName = "Name"; 
-    private static readonly Guid TestParentId = Guid.Parse("60e5f7b0-286e-41d5-b6bd-f905c35833f2"); 
-    
     [Theory]
     [InlineData("Electronics", null)]
     [InlineData("Power supplies", "60e5f7b0-286e-41d5-b6bd-f905c35833f2")]

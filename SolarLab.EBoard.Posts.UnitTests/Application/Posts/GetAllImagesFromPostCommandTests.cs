@@ -4,7 +4,7 @@ using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
 using SolarLab.EBoard.Posts.Application.CQRS.Posts.GetAllImages;
 using SolarLab.EBoard.Posts.Domain.Entities;
 using SolarLab.EBoard.Posts.Domain.ValueObjects;
-using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Application.Posts;
 

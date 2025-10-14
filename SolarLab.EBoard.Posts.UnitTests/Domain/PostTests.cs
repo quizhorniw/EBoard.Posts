@@ -1,6 +1,6 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
 using SolarLab.EBoard.Posts.Domain.ValueObjects;
-using static SolarLab.EBoard.Posts.UnitTests.TestPostConstants;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Domain;
 

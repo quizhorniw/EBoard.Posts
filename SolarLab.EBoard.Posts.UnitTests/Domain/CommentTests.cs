@@ -1,14 +1,10 @@
 using SolarLab.EBoard.Posts.Domain.Entities;
+using static SolarLab.EBoard.Posts.UnitTests.TestConstants;
 
 namespace SolarLab.EBoard.Posts.UnitTests.Domain;
 
 public class CommentTests
 {
-    private static readonly Guid TestPostId = Guid.Parse("d2eb359d-9d6c-4f20-b22e-4a9fc91844d5"); 
-    private static readonly Guid TestUserId = Guid.Parse("43bef27b-ca9d-490d-a998-62e7f06f3bf7"); 
-    private const string TestText = "Text";
-    private static readonly DateTime TestDateTime = new(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    
     [Theory]
     [InlineData("d2eb359d-9d6c-4f20-b22e-4a9fc91844d5", "43bef27b-ca9d-490d-a998-62e7f06f3bf7", "Comment 1")]
     [InlineData("8cde7e16-4362-474b-bb65-f7406b2d65b3", "0214c189-43bc-4f06-a5eb-33d7f98799e3", " some-comment-2")]
