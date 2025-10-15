@@ -9,6 +9,21 @@ public sealed class PagedResult<T>
 
     public PagedResult(IReadOnlyList<T> items, int page, int pageSize, int totalCount)
     {
+        if (page <= 0)
+        {
+            page = 1;
+        }
+
+        if (pageSize <= 0)
+        {
+            pageSize = 1;
+        }
+
+        if (totalCount < 0)
+        {
+            totalCount = 0;
+        }
+        
         Items = items;
         Page = page;
         PageSize = pageSize;

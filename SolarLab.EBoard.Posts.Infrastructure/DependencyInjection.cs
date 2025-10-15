@@ -7,9 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
+using SolarLab.EBoard.Posts.Application.Abstractions.Time;
 using SolarLab.EBoard.Posts.Infrastructure.Authentication;
+using SolarLab.EBoard.Posts.Infrastructure.ExceptionHandlers;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
 using SolarLab.EBoard.Posts.Infrastructure.Storage;
+using SolarLab.EBoard.Posts.Infrastructure.Time;
 
 namespace SolarLab.EBoard.Posts.Infrastructure;
 
@@ -27,6 +30,12 @@ public static class DependencyInjection
     {
         services.AddScoped<IStorageService, FileSystemStorageService>();
         services.AddScoped<IUrlProvider, FileSystemUrlProvider>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        
+        services.AddExceptionHandler<BadRequestExceptionHandler>();
+        services.AddExceptionHandler<NotFoundExceptionHandler>();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
         
         return services;
     }

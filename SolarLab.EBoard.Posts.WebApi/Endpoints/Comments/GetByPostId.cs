@@ -8,10 +8,9 @@ internal sealed class GetByPostId : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/comments",
-            async ([FromQuery(Name = "postId")] Guid adPostId, IMediator mediator, CancellationToken cancellationToken) => 
+        app.MapGet("/comments", async (Guid postId, IMediator mediator, CancellationToken cancellationToken) => 
             { 
-                var result = await mediator.Send(new GetCommentsByPostIdQuery(adPostId), cancellationToken); 
+                var result = await mediator.Send(new GetCommentsByPostIdQuery(postId), cancellationToken); 
                 return Results.Ok(result); 
             })
             .AllowAnonymous();
