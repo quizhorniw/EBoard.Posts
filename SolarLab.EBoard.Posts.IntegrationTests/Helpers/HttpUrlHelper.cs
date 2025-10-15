@@ -4,4 +4,5 @@ public static class HttpUrlHelper
 {
     public const string PostsUrl = "/api/posts";
     public const string CategoriesUrl = "/api/categories";
+    public const string CommentsUrl = "/api/comments";
 }
