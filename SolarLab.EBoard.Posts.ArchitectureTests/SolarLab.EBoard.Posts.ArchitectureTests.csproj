@@ -14,12 +14,20 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
 
     <ItemGroup>
         <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.Application\SolarLab.EBoard.Posts.Application.csproj" />
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.Domain\SolarLab.EBoard.Posts.Domain.csproj" />
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.Infrastructure\SolarLab.EBoard.Posts.Infrastructure.csproj" />
+      <ProjectReference Include="..\SolarLab.EBoard.Posts.WebApi\SolarLab.EBoard.Posts.WebApi.csproj" />
     </ItemGroup>
 
 </Project>
