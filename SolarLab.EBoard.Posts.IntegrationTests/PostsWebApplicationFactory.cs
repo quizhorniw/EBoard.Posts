@@ -13,10 +13,12 @@ namespace SolarLab.EBoard.Posts.IntegrationTests;
 public class PostsWebApplicationFactory : WebApplicationFactory<Program>
 {
     private readonly bool _withAuth;
-
-    public PostsWebApplicationFactory(bool withAuth)
+    private readonly string _role;
+    
+    public PostsWebApplicationFactory(bool withAuth = true, string role = "User")
     {
         _withAuth = withAuth;
+        _role = role;
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -37,6 +39,8 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>
             {
                 services.AddAuthentication("TestScheme")
                     .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("TestScheme", opts => { });
+                
+                services.Configure<TestAuthHandlerOptions>(options => options.Role = _role);
             }
 
             services.AddDbContext<AppDbContext>((container, options) =>

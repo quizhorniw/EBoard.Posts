@@ -19,7 +19,7 @@ public class PostEndpointsTests
     public async Task CreatePost_ReturnsCreatedPostIdAndCreated()
     {
         // Arrange
-        var factory = new PostsWebApplicationFactory(withAuth: true);
+        var factory = new PostsWebApplicationFactory();
         var client = factory.CreateClient();
         
         Guid categoryId;
@@ -79,7 +79,7 @@ public class PostEndpointsTests
     public async Task UpdatePost_ReturnsNoContent()
     {
         // Arrange
-        var factory = new PostsWebApplicationFactory(withAuth: true);
+        var factory = new PostsWebApplicationFactory();
         var client = factory.CreateClient();
 
         Guid categoryId;
@@ -151,7 +151,7 @@ public class PostEndpointsTests
     public async Task DeletePost_ReturnsNoContent()
     {
         // Arrange
-        var factory = new PostsWebApplicationFactory(withAuth: true);
+        var factory = new PostsWebApplicationFactory();
         var client = factory.CreateClient();
 
         Guid postId;
@@ -289,7 +289,7 @@ public class PostEndpointsTests
     public async Task AddImagesToPost_ReturnsSuccess()
     {
         // Arrange
-        var factory = new PostsWebApplicationFactory(withAuth: true);
+        var factory = new PostsWebApplicationFactory();
         var client = factory.CreateClient();
 
         Guid postId;
@@ -345,7 +345,7 @@ public class PostEndpointsTests
     public async Task AddImagesToPost_WithoutFilesAttached_ReturnsBadRequest()
     {
         // Arrange
-        var factory = new PostsWebApplicationFactory(withAuth: true);
+        var factory = new PostsWebApplicationFactory();
         var client = factory.CreateClient();
 
         Guid postId;
