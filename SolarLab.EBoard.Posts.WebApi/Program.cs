@@ -33,3 +33,5 @@ app.UseAuthorization();
 app.AddStaticFiles();
 
 app.Run();
+
+public partial class Program { }
