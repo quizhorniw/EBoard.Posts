@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SolarLab.EBoard.Posts.IntegrationTests.Helpers;
 
-public class WebApplicationFactoryHelper
+public static class WebApplicationFactoryHelper
 {
     public static void RemoveDbContext<TContext>(IServiceCollection services) where TContext : DbContext
     {
