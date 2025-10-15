@@ -286,6 +286,22 @@ public class PostEndpointsTests
     }
 
     [Fact]
+    public async Task GetPostById_NotPresentInDatabase_ReturnsNotFound()
+    {
+        // Arrange
+        var factory = new PostsWebApplicationFactory(withAuth: false);
+        var client = factory.CreateClient();
+        
+        var requestUrl = HttpUrlHelper.PostsUrl + $"/{TestConstantsHelper.TestPostId}";
+        
+        // Act
+        var response = await client.GetAsync(requestUrl);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+    
+    [Fact]
     public async Task AddImagesToPost_ReturnsSuccess()
     {
         // Arrange
