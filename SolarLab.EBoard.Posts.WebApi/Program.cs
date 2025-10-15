@@ -32,6 +32,10 @@ app.UseAuthorization();
 
 app.AddStaticFiles();
 
+app.Run();
+
 app.UseExceptionHandler();
 
 app.Run();
+
+public partial class Program { }
