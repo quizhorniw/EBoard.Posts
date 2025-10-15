@@ -32,4 +32,6 @@ app.UseAuthorization();
 
 app.AddStaticFiles();
 
+app.UseExceptionHandler();
+
 app.Run();
