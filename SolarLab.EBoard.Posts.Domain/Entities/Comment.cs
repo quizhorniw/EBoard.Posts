@@ -22,6 +22,8 @@ public class Comment : Entity
         UserId = userId;
         Text = text.Trim();
         CreatedAt = createdAt;
+        
+        Raise(new CommentCreatedDomainEvent(Id));
     }
 
     public static Comment Create(Guid postId, Guid userId, string text, DateTime createdAt) =>
