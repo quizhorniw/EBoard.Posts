@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SolarLab.EBoard.Posts.Application.Abstractions.Http;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
 using SolarLab.EBoard.Posts.IntegrationTests.Helpers;
 
@@ -50,6 +51,8 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>
             });
 
             services.AddHostedService<DatabaseInitializerHostedService>();
+
+            services.AddScoped<IHttpClientProvider, FakeHttpClientProvider>();
         });
 
         builder.UseEnvironment("IntegrationTests");

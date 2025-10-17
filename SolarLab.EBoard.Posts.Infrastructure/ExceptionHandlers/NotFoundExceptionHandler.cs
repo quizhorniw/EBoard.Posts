@@ -7,14 +7,14 @@ namespace SolarLab.EBoard.Posts.Infrastructure.ExceptionHandlers;
 
 public class NotFoundExceptionHandler : IExceptionHandler
 {
-    private readonly Logger<NotFoundExceptionHandler> _logger;
+    private readonly ILogger<NotFoundExceptionHandler> _logger;
     
     private readonly IEnumerable<Type> _notFoundExceptions =
     [
         typeof(KeyNotFoundException)
     ];
     
-    public NotFoundExceptionHandler(Logger<NotFoundExceptionHandler> logger)
+    public NotFoundExceptionHandler(ILogger<NotFoundExceptionHandler> logger)
     {
         _logger = logger;
     }
