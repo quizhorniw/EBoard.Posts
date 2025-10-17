@@ -1,4 +1,6 @@
+using System.Net;
 using System.Text;
+using Confluent.Kafka;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -6,12 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SolarLab.EBoard.Posts.Application.Abstractions.Authentication;
 using SolarLab.EBoard.Posts.Application.Abstractions.Http;
+using SolarLab.EBoard.Posts.Application.Abstractions.Messaging;
 using SolarLab.EBoard.Posts.Application.Abstractions.Persistence;
 using SolarLab.EBoard.Posts.Application.Abstractions.Storage;
 using SolarLab.EBoard.Posts.Application.Abstractions.Time;
+using SolarLab.EBoard.Posts.Application.Abstractions.Users;
 using SolarLab.EBoard.Posts.Infrastructure.Authentication;
 using SolarLab.EBoard.Posts.Infrastructure.ExceptionHandlers;
 using SolarLab.EBoard.Posts.Infrastructure.Http;
+using SolarLab.EBoard.Posts.Infrastructure.Messaging;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
 using SolarLab.EBoard.Posts.Infrastructure.Storage;
 using SolarLab.EBoard.Posts.Infrastructure.Time;
@@ -24,8 +29,8 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         return services
-            .AddServices()
             .AddServices(configuration)
+            .AddKafka()
             .AddDatabase(configuration)
             .AddAuthenticationInternal(configuration);
     }
@@ -46,6 +51,20 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
         
+        return services;
+    }
+
+    private static IServiceCollection AddKafka(this IServiceCollection services)
+    {
+        var kafkaConfig = new ProducerConfig
+        {
+            BootstrapServers = "localhost:9092",
+            ClientId = Dns.GetHostName(),
+        };
+        services.AddSingleton<IProducer<string, string>>(_ => new ProducerBuilder<string, string>(kafkaConfig).Build());
+        
+        services.AddSingleton<IMessageProducer, KafkaNotificationProducer>();
+
         return services;
     }
     
