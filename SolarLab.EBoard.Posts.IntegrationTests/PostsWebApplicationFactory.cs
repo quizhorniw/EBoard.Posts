@@ -6,6 +6,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SolarLab.EBoard.Posts.Application.Abstractions.Http;
+using SolarLab.EBoard.Posts.Application.Abstractions.Messaging;
 using SolarLab.EBoard.Posts.Infrastructure.Persistence;
 using SolarLab.EBoard.Posts.IntegrationTests.Helpers;
 
@@ -53,6 +54,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>
             services.AddHostedService<DatabaseInitializerHostedService>();
 
             services.AddScoped<IHttpClientProvider, FakeHttpClientProvider>();
+            services.AddScoped<IMessageProducer, NoOpMessageProducer>();
             
             Environment.SetEnvironmentVariable("JWT_SECRET", "Test JWT Secret");
             Environment.SetEnvironmentVariable("JWT_ISSUER", "Test JWT Issuer");
