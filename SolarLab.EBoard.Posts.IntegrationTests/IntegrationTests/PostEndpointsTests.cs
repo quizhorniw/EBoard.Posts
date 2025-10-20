@@ -457,7 +457,7 @@ public class PostEndpointsTests
         
         // Act
         var response = await client.GetAsync(requestUrl);
-        var result = await response.Content.ReadFromJsonAsync<List<ImageDto>>();
+        var result = await response.Content.ReadFromJsonAsync<ImageDtoList>();
 
         // Assert
         response.EnsureSuccessStatusCode();

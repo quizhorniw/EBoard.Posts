@@ -48,11 +48,11 @@ public class GetAllImagesFromPostCommandTests
         var result = await _handler.Handle(request, CancellationToken.None);
         
         // Assert
-        Assert.Equal(post.Images.Count, result.Count);
+        Assert.Equal(post.Images.Count, result.Images.Count);
         for (var i = 0; i < post.Images.Count; ++i)
         {
             var expectedImage = post.Images[i];
-            var actualImage = result[i];
+            var actualImage = result.Images[i];
             
             Assert.Equal(expectedImage.MimeType, actualImage.MimeType);
             Assert.Equal(expectedImage.Size, actualImage.Size);
