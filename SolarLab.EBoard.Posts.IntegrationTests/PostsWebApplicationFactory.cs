@@ -53,6 +53,11 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>
             services.AddHostedService<DatabaseInitializerHostedService>();
 
             services.AddScoped<IHttpClientProvider, FakeHttpClientProvider>();
+            
+            Environment.SetEnvironmentVariable("JWT_SECRET", "Test JWT Secret");
+            Environment.SetEnvironmentVariable("JWT_ISSUER", "Test JWT Issuer");
+            Environment.SetEnvironmentVariable("JWT_AUDIENCE", "Test JWT Audience");
+            Environment.SetEnvironmentVariable("FILESTORAGE_URL", "Test FileStorage URL");
         });
 
         builder.UseEnvironment("IntegrationTests");
