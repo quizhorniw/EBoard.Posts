@@ -6,7 +6,7 @@ namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Categories;
 
 internal sealed class Update : IEndpoint
 {
-    internal sealed record Request(string Name, Guid? ParentId);
+    internal sealed record UpdateCategoryRequest(string Name, Guid? ParentId);
     
     public void MapEndpoint(IEndpointRouteBuilder app)
     {

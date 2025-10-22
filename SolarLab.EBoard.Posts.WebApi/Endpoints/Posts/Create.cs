@@ -5,7 +5,7 @@ namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Posts;
 
 internal sealed class Create : IEndpoint
 {
-    internal sealed record Request(
+    internal sealed record CreatePostRequest(
         string Title,
         string? Description,
         Guid CategoryId,

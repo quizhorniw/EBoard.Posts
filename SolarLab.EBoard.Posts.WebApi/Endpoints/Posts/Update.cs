@@ -5,7 +5,7 @@ namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Posts;
 
 internal sealed class Update : IEndpoint
 {
-    internal sealed record Request(
+    internal sealed record UpdatePostRequest(
         string Title,
         string? Description,
         Guid CategoryId,

@@ -5,7 +5,7 @@ namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Comments;
 
 internal sealed class Update : IEndpoint
 {
-    public sealed record Request(string Text);
+    public sealed record UpdateCommentRequest(string Text);
     
     public void MapEndpoint(IEndpointRouteBuilder app)
     {

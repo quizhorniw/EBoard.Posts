@@ -5,7 +5,7 @@ namespace SolarLab.EBoard.Posts.WebApi.Endpoints.Comments;
 
 internal sealed class Create : IEndpoint
 {
-    internal sealed record Request(Guid PostId, string Text);
+    internal sealed record CreateCommentRequest(Guid PostId, string Text);
     
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
