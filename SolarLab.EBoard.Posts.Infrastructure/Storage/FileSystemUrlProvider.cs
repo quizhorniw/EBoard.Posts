@@ -9,7 +9,7 @@ public class FileSystemUrlProvider : IUrlProvider
 
     public FileSystemUrlProvider(IConfiguration configuration)
     {
-        _baseUrl = configuration["FileStorage:BaseUrl"] 
+        _baseUrl = Environment.GetEnvironmentVariable("FILESTORAGE_URL") 
                    ?? throw new InvalidOperationException("BaseUrl not configured");
     }
 
